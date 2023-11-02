@@ -1,5 +1,5 @@
 # When testing, use:
-# (env) $ python3 -c 'import check_exe.cli; check_exe.cli.main()' [ARGS]
+# (env) $ python3 -c 'import exe_check.cli; exe_check.cli.main()' [ARGS]
 # This makes it run the same way as installed version, which makes imports work correctly. 
 
 import argparse
