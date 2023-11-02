@@ -17,18 +17,10 @@ def get_packed_status_and_warnings(file_path):
     try:
         pe = pefile.PE(file_path, fast_load=True)
     except pefile.PEFormatError as e:
-        warn(f"{e}: {file_path}")
+        if str(e) != "'The file is empty'":
+            warn(f"{e}: {file_path}")
         return None, None
     return packed_section_flags(pe), pe.get_warnings()
-
-def show_packed_status(file_path, packed, warnings):
-    if packed is None and warnings is None:
-        return
-    res = "Bad" if packed else "Good"
-    print(f"{res}\t{file_path}")
-    if res == 'Bad':
-        for w in warnings:
-            print(f"  > {w}")
 
 # def packed_peutils(pe): # incorrect result often given for installer EXEs.
 #     return peutils.is_probably_packed(pe)
