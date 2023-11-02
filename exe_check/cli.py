@@ -24,7 +24,7 @@ def check_file(f):
         status = 'Bad'
         reasons.append('File has zero length.')
     # Check for packing.
-    res = packing.get_packed_status_and_warnings(f)
+    res = packing.get_packed_status_and_reasons(f)
     if res[0] is True:
         status = 'Bad'
         reasons.extend(res[1])
@@ -47,6 +47,8 @@ def show_file_info(f):
     try:
         pe = pefile.PE(f, fast_load=True)
         print(pe.dump_info())
+        # # TODO: Testing.
+        # packing.packed_mismatched_data_sizes(pe)
     except pefile.PEFormatError as e:
         error(e)
 
