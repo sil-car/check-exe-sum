@@ -7,6 +7,7 @@ import pefile
 import sys
 from pathlib import Path
 
+from . import config
 from . import packing
 from .util import error
 from .util import get_valid_size_status
@@ -69,12 +70,21 @@ def main():
         help="show all Portable Executable-related info for the given file",
     )
     parser.add_argument(
+        '-V', '--version',
+        action='store_true',
+        help="show all Portable Executable-related info for the given file",
+    )
+    parser.add_argument(
         'file',
         nargs='?',
         help="check the given EXE (or similar) file for evidence of packing",
     )
     args = parser.parse_args()
     exts = ['.dll', '.exe']
+
+    if args.version is True:
+        print(config.VERSION)
+        exit()
 
     if args.file is None:
         parser.print_help()

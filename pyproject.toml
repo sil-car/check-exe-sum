@@ -8,7 +8,7 @@ dependencies = [
 ]
 name = "exe_check"
 version = "0.1.2"
-dynamic = ["readme"]
+dynamic = ["readme", "version"]
 
 [project.scripts]
 exe-check = "exe_check.cli:main"
@@ -18,3 +18,4 @@ packages = ["exe_check"]
 
 [tool.setuptools.dynamic]
 readme = {file = ["README.md"], content-type = "text/plain"}
+version = {attr = "exe_check.config.VERSION"}

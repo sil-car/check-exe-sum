@@ -6,10 +6,14 @@ i.e. it has been corrupted by a virus.
 ## Usage
 
 ```
-$ exe-check ~/Téléchargements/Thunderbird\ Setup\ 102.10.0.exe 
-Bad	~/Téléchargements/Thunderbird Setup 102.10.0.exe
-  > Suspicious flags set for section 0. Both IMAGE_SCN_MEM_WRITE and IMAGE_SCN_MEM_EXECUTE are set. This might indicate a packed executable.
-  > Suspicious flags set for section 1. Both IMAGE_SCN_MEM_WRITE and IMAGE_SCN_MEM_EXECUTE are set. This might indicate a packed executable.
+$ exe-check eis_nt64.good.exe 
+Good	/media/nate/Storage/virus-research/eis_nt64.good.exe
+$ exe-check eis_nt64.bad.exe 
+Bad	/media/nate/Storage/virus-research/eis_nt64.bad.exe
+  > Suspicious flags set for section 6. Both IMAGE_SCN_MEM_WRITE and IMAGE_SCN_MEM_EXECUTE are set. This might indicate a packed executable.
+$ exe-check zero-size.exe 
+Bad	/media/nate/Storage/virus-research/zero-size.exe
+  > File has zero length.
 ```
 
 ## Installation
@@ -35,5 +39,6 @@ $ which exe-check
 ~/.local/bin/exe-check
 ```
 
+> More info: https://learn.microsoft.com/en-us/windows/win32/debug/pe-format
 > This project relies heavily on pefile, which can be found on [GitHub](https://github.com/erocarrera/pefile)
 > and on [PyPI](https://pypi.org/project/pefile/).
