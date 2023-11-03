@@ -7,7 +7,6 @@ dependencies = [
     "pefile",
 ]
 name = "exe_check"
-version = "0.1.2"
 dynamic = ["readme", "version"]
 
 [project.scripts]
