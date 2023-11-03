@@ -25,7 +25,7 @@ def get_packed_status_and_reasons(file_path):
     
     upx_type = is_upx_type(pe)
     if upx_type is True:
-        packed = True
+        packed = None
         reasons.append('UPX-type exe; packing status unknown')
     else:
         if packed_section_flags(pe) is True:

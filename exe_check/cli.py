@@ -26,7 +26,10 @@ def check_file(f):
         reasons.append('File has zero length.')
     # Check for packing.
     res = packing.get_packed_status_and_reasons(f)
-    if res[0] is True:
+    if res[0] is None:
+        status = 'Unknown'
+        reasons.extend(res[1])
+    elif res[0] is True:
         status = 'Bad'
         reasons.extend(res[1])
     return status, reasons
