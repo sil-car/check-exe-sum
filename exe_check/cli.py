@@ -46,7 +46,8 @@ def evaluate_dir_path(base_dir, exts):
     #   checking. Otherwise, all the files have to be found first, then they can
     #   be checked.
     for f in (p for p in base_dir.rglob('*') if p.suffix.lower() in exts):
-        show_file_results(f)
+        if f.is_file():
+            show_file_results(f)
 
 def show_file_info(f):
     # Dump all PE info to stdout.
