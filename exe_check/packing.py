@@ -53,8 +53,8 @@ def packed_mismatched_data_sizes(pe):
     if idata_sum is None and udata_sum is None:
         return False
     if not (rep_idata_size >= idata_sum and rep_udata_size >= udata_sum):
-        print(f"{rep_idata_size = }; {idata_sum = }")
-        print(f"{rep_udata_size = }; {udata_sum = }")
+        # print(f"{rep_idata_size = }; {idata_sum = }")
+        # print(f"{rep_udata_size = }; {udata_sum = }")
         return True
     return False
 
