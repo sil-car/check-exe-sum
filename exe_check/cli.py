@@ -36,9 +36,12 @@ def check_file(f):
             reasons.extend(res[1])
     return status, reasons
 
-def show_file_results(file_path):
+def evaluate_file(file_path):
     status, reasons = check_file(file_path)
     show_file_status(file_path, status, reasons)
+    if config.REMOVE_FILES is True and status == 'Bad':
+        print(f"  > Removing: {file_path}")
+        file_path.unlink()
 
 def evaluate_dir_path(base_dir, exts):
     """ Scan folder and all subfolders for packed EXE, etc. files. """
@@ -47,7 +50,7 @@ def evaluate_dir_path(base_dir, exts):
     #   be checked.
     for f in (p for p in base_dir.rglob('*') if p.suffix.lower() in exts):
         if f.is_file():
-            show_file_results(f)
+            evaluate_file(f)
 
 def show_file_info(f):
     # Dump all PE info to stdout.
@@ -65,6 +68,11 @@ def main():
         description=description,
         formatter_class=argparse.RawDescriptionHelpFormatter,
         )
+    parser.add_argument(
+        '-c', '--clean',
+        action='store_true',
+        help="delete bad file(s)",
+    )
     parser.add_argument(
         '-d', '--directory',
         action='store_true',
@@ -98,6 +106,9 @@ def main():
 
     full_path = get_full_path(args.file)
 
+    if args.clean:
+        config.REMOVE_FILES = True
+
     if args.directory:
         # Scan folder and all subfolders for packed EXE files.
         base_dir = full_path
@@ -119,5 +130,5 @@ def main():
             error(f"File not found: {target_file}")
         if not target_file.suffix.lower() in exts:
             error(f"Invalid file type: {target_file}")
-        show_file_results(target_file)
+        evaluate_file(target_file)
         exit()
